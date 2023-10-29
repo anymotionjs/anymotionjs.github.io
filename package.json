@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "airx": "latest",
-    "animjs": "*"
+    "@anymotion/core": "*",
+    "@anymotion/html-driver": "*"
   },
   "devDependencies": {
     "typescript": "~5.0.0",

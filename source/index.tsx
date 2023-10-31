@@ -1,7 +1,7 @@
 import { createApp } from 'airx'
 
 
-import { Card } from './common/card'
+import { Card } from './components/card'
 import { HtmlDriver } from './modules/html-driver'
 import { ScrollProgressDriver } from './modules/scroll-progress-driver'
 

@@ -2,32 +2,35 @@ import { onMounted, createRef } from 'airx'
 
 import htmlDriver from '@anymotion/html-driver'
 import { use, Tween, ScrollProgressDriver as SPD, easingFunction } from '@anymotion/core'
-import { Card } from '../../common/card'
+import { eachElement } from '../../utils/element'
+import { Card } from '../../components/card'
 
 import style from './style.module.css'
 
 use(htmlDriver)
 
 export function ScrollProgressDriver() {
-  const scroll = new SPD(style.scrollContainer)
+  const scroll = new SPD(`.${style.scrollContainer}`)
   let tweenTimeEasingFunction = createRef(easingFunction.linear)
 
   onMounted(() => {
-    scroll
-      .axis('vertical')
-      .ease(tweenTimeEasingFunction.value)
-      .drive(new Tween(style.scrollContainer).to({
-        scale: 1,
+    eachElement(`.${style.scrollChildren}`, (ele, index, list) => {
+      const tween = new Tween(ele).to({
         width: '200px',
         height: '200px',
-        // rotate: '1.57rad',
-        top: '200px',
-        left: '80px',
-        bottom: '30px',
-        right: '40%',
-        translate: '200px 50% 50rem',
+        rotate: '360deg',
         backgroundColor: '#3f5efb'
-      }))
+      })
+
+      const anim = new SPD(`.${style.scrollContainer}`).drive(tween)
+      scroll.then(anim)
+    })
+
+    scroll
+      .drive()
+      .axis('vertical')
+      .distance(0.05)
+      .ease(tweenTimeEasingFunction.value)
       .play()
   })
 
@@ -35,7 +38,9 @@ export function ScrollProgressDriver() {
     <Card title="ScrollProgressDriver">
       <div class={style.scrollContainer}>
         {new Array(100).fill(null).map((_, i) => (
-          <div key={i}>{i}</div>
+          <div class={style.scrollChildren} key={i}>
+            ({i}--------------------------{i})
+          </div>
         ))}
       </div>
     </Card>

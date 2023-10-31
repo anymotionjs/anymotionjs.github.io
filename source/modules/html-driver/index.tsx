@@ -2,7 +2,7 @@ import { onMounted, createRef } from 'airx'
 
 import htmlDriver from '@anymotion/html-driver'
 import { use, Tween, TimeProgressDriver as TPD, easingFunction } from '@anymotion/core'
-import { Action, Card } from '../../common/card'
+import { Action, Card } from '../../components/card'
 
 use(htmlDriver)
 

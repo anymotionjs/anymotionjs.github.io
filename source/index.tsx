@@ -2,8 +2,8 @@ import { createApp } from 'airx'
 
 
 import { Card } from './components/card'
-import { HtmlDriver } from './modules/html-driver'
 import { ScrollProgressDriver } from './modules/scroll-progress-driver'
+import { HtmlDriver, HtmlDriverWithKeyFrame } from './modules/html-driver'
 
 function App() {
 
@@ -11,6 +11,7 @@ function App() {
   return () => (
     <Card title="TEST">
       <HtmlDriver />
+      <HtmlDriverWithKeyFrame />
       <ScrollProgressDriver />
     </Card>
   )

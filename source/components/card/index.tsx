@@ -10,7 +10,7 @@ interface CardProps {
   title: string
   actions?: Action[]
   children?: AirxChildren
-  states?: (string | undefined | null)[]
+  states?: (AirxChildren | string | undefined | null)[]
 }
 
 export function Card(props: CardProps) {

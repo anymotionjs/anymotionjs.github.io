@@ -14,30 +14,31 @@ export function ScrollProgressDriver() {
   let tweenTimeEasingFunction = createRef(easingFunction.linear)
 
   onMounted(() => {
-    eachElement(`.${style.scrollChildren}`, (ele, index, list) => {
-      const tween = new Tween(ele).to({
-        width: '200px',
-        height: '200px',
-        rotate: '360deg',
-        backgroundColor: '#3f5efb'
-      })
-
-      const anim = new SPD(`.${style.scrollContainer}`).drive(tween)
-      scroll.then(anim)
-    })
-
     scroll
-      .drive()
+      .distance(1)
       .axis('vertical')
-      .distance(0.05)
       .ease(tweenTimeEasingFunction.value)
+      .drive(new Tween(`.${style.scrollChildren}`)
+        .addKeyFrame(0.1, {
+          scale: 1,
+        })
+        .addKeyFrame(0.5, {
+          scale: 0.5,
+        })
+        .addKeyFrame(0.9, {
+          scale: 0.1,
+        })
+        .to({
+          scale: 1,
+        })
+      )
       .play()
   })
 
   return () => (
     <Card title="ScrollProgressDriver">
       <div class={style.scrollContainer}>
-        {new Array(100).fill(null).map((_, i) => (
+        {new Array(10).fill(null).map((_, i) => (
           <div class={style.scrollChildren} key={i}>
             ({i}--------------------------{i})
           </div>
